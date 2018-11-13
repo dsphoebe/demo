@@ -3,28 +3,121 @@
 <head>
   <meta charset="utf-8">
   <title>CSS 练习 - 仿百度搜索框</title>
+  <script src="//at.alicdn.com/t/font_905467_jrdwm2tdji9.js"></script>
   <style>
      * {padding: 0; margin: 0;}
+    * {
+      box-sizing: border-box;
+    }
+    ul, li {
+      list-style: none;
+    }
+    input, button {
+      outline: none;
+      border: 0 none;
+      font: 16px/18px arial;
+    }
+    button {
+      cursor: pointer;
+    }
     .search-wrapper {
+      height: 100vh;
       display: flex;
       justify-content: center;
       align-items: center;
+      font: 16px/18px arial;
+    }
+    .icon {
+      width: 18px; height: 16px;
+      vertical-align: -0.15em;
+      fill: #9d9d9d;
+      overflow: hidden;
+    }
+    .input-wrapper {
+      width: 540px;
       height: 36px;
+      position: relative;
+    }
+    .input-wrapper input {
+      border: 1px solid #ccc;
+      background: #fff;
+      height: 100%;
+      width: 100%;
+      padding: 0 6px;
+      border-right: 0;
+    }
+    .input-wrapper input:hover {
+      border-color: #b3b3b3;
+    }
+    .input-wrapper input:focus {
+      border-color: #3385ff;
+    }
+    .input-wrapper button {
+      position: absolute;
+      top: 10px;
+      width: 39px;
+      height: 16px;
+      right: 40px;
+    }
+    .input-wrapper button:nth-last-child(2) {
+      border-left: 1px solid #ccc;
+      right: 0;
+    }
+    .search-btn {
+      background: #3385ff;
+      color: #fff;
+      line-height: 36px;
+      padding: 0 20px;
+    }
+    .search-btn:hover {
+      box-shadow: 1px 1px 1px 0 rgba(0,0,0,.3);
+    }
+    .suggestion {
+      display: none;
+      border: 1px solid #ccc;
+      background: #fff;
+      position: absolute;
+      top: 36px; 
+      width: 100%;
+      padding: 10px;
+    }
+    .active {
+      display: block;
     }
   </style>
 </head>
 <body>
-<div class="search-wrapper">
-  <div class="input-wrapper">
-    <input type="text">
-    <svg>
-      <use xlink:href="#icon-speak"></use>
-    </svg>
-    <svg>
-      <use xlink:href="#icon-camer"></use>
-    </svg>
+  <div class="search-wrapper">
+    <div class="input-wrapper">
+      <input type="text" id="searchInput">
+      <button>
+        <svg class="icon">
+          <use xlink:href="#icon-huatong"></use>
+        </svg>
+      </button>
+      <button>
+        <svg class="icon">
+          <use xlink:href="#icon-xiangji"></use>
+        </svg>
+      </button>
+      <div class="suggestion" id="suggestion">
+        <ul>
+          <li>a</li>
+          <li>b</li>
+          <li>c</li>
+          <li>d</li>
+        </ul>
+      </div>
+    </div>
+    <button class="search-btn">百度一下</button>
   </div>
-  <button>百度一下</button>
-</div>
-</body>
+  <script>
+    $('#searchInput').on('input', function() {
+      $('#suggestion').addClass('active')
+    })
+    .on('blur', function() {
+      $('#suggestion').removeClass('active');
+    })
+  </script>
+  </body>
 </html>
