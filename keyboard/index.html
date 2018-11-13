@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>键盘导航</title>
+  <style>
+  *{margin: 0; padding: 0;}
+  a{text-decoration: none;}
+  kbd{border: 1px solid red;width:4em; height: 4em; display: inline-block; text-transform: uppercase; position: relative; }
+  kbd > button{position: absolute; right: 0; bottom: 0; display: none; }
+  kbd:hover > button{display: inline-block; }
+  body{background: grey url(./wall.jpg) no-repeat center center; }
+  main{text-align: center; display: flex; justify-content: center; align-items: center; height: 100vh; }
+  #main> div:nth-child(2){margin-left: -22px; }
+  #main> div:nth-child(3){margin-left: -80px; }
+  .wrapper{
+    background: rgba(255,255,255,0.2);
+    border-radius: 10px;
+  }
+  .key{width: 50px; height: 40px; background: linear-gradient(to bottom, #292929 0%,#111111 100%); 
+    border: 1px solid #373737; color: #C5C5C5; border-radius: 6px; 
+    box-shadow: 0 0 0 1px #1A1B1C, 0 0 0 2px #1F2020, 0 3px 0 2px #080808; 
+    position: relative;
+    font-size: 16px; font-family: Helvetica;}
+  .row{margin: 20px; }
+  .row .key{margin: 0 10px; }
+  .key img{width: 16px; height: 16px; position: absolute; left: 4px; bottom: 2px;}
+  .key .text{position: absolute; left: 4px; top: 2px; }
+  </style>
+</head>
+<body>
+  <main class="keyboard" id="main"></main>
+</body>
+<script>
+  function init() {
+    var keys = {
+      0: {0: 'q', 1: 'w', 2: 'e', 3: 'r', 4: 't', 5: 'y', 6: 'u', 7: 'i', 8: 'o', 9: 'p', 'length': 10},
+      1: {0: 'a', 1: 's', 2: 'd', 3: 'f', 4: 'g', 5: 'h', 6: 'j', 7: 'k', 8: 'l', 'length': 9},
+      2: {0: 'z', 1: 'x', 2: 'c', 3: 'v', 4: 'b', 5: 'n', 6: 'm', 'length': 7},
+      'length': 3
+    };
+    var hash = {
+      'q': 'https://www.qq.com/?fromdefault',
+      'w': 'https://www.aliyun.com',
+      'e': 'https://exmail.qq.com',
+      'r': 'http://www.raychase.net',
+      't': 'https://www.taobao.com',
+      'y': 'https://www.youtube.com',
+      'u': 'http://www.uniqlo.com/UniqloU18fw/hk',
+      'i': 'http://iqiyi.com',
+      'o': 'https://outlook.live.com/owa',
+      'p': 'https://www.pinterest.com',
+      'a': 'https://www.amazon.cn',
+      's': 'https://www.smashingmagazine.com',
+      'd': 'https://douban.com',
+      'f': 'https://facebook.com',
+      'g': 'http://www.google.com',
+      'h': 'https://huangxuan.me',
+      'j': 'https://jd.com',
+      'k': 'https://kuaidi100.com',
+      'l': 'https://localhost:4000',
+      'z': 'https://zhihu.com',
+      'x': 'https://xiedaimala.com',
+      'c': 'https://codepen.io',
+      'v': 'https://cn.vuejs.org/index.html',
+      'b': 'https://www.baidu.com/',
+      'n': 'https://www.namesilo.com',
+      'm': 'https://map.baidu.com',
+    }
+    var hashInLocalStorage = getFromLocalStorage('keyboardNav') 
+			if(hashInLocalStorage){
+				hash = hashInLocalStorage
+			}
+    return {
+      'keys': keys,
+      'hash': hash
+    };
+  }
+
+  var hashA = init()
+  var keys = hashA['keys']
+  var hash = hashA['hash']
+  
+  generateKeyboard(keys, hash)
+  
+  listenToUser(hash)
+  
+  function getFromLocalStorage(name){
+    return JSON.parse(localStorage.getItem(name) || 'null')
+  }
+  function tag(tagName) {
+    return document.createElement(tagName);
+  }
+
+  function createSpan(textContent) {
+    var span = tag('span');
+    span.textContent = textContent;
+    span.className = 'text';
+    return span;
+  }
+
+  function createButton(id) {
+    var button = tag('button');
+    button.textContent = 'Edit';
+    button.id = id;
+    button.onclick = function(event) {
+      var button2 = event.target;
+      var img2 = button2.previousSibling;
+      var key = button2['id'];
+      var x = prompt('给我一个网站');
+      hash[key] = x;
+      img2.src = x + '/favicon.ico';
+      img2.onerror = function(event) {
+        event.target.src = 'https://i.loli.net/2017/11/10/5a05afbc5e183.png'
+      }
+      localStorage.setItem('keyboardNav', JSON.stringify(hash));
+    }
+    return button;
+  }
+
+  function createImage(domain){
+    var img = tag('img')
+    if(domain){
+      img.src = domain + '/favicon.ico'
+    }else{
+      img.src = '//i.loli.net/2017/11/10/5a05afbc5e183.png'
+    }
+    img.onerror = function(xxx){
+      xxx.target.src = '//i.loli.net/2017/11/10/5a05afbc5e183.png'
+    }
+    return img
+  }
+
+  function generateKeyboard(keys, hash) {
+    for (var index = 0; index < keys['length']; index ++) {
+      var div = tag('div');
+      div.className = 'row';
+      main.appendChild(div);
+
+      var row = keys[index];
+      for (var index2 = 0; index2 < row['length']; index2++) {
+        var span = createSpan(row[index2]);
+        var button = createButton(row[index2]);
+        var img = createImage(hash[row[index2]]);
+        var kbd = tag('kbd');
+        kbd.className = 'key';
+        kbd.appendChild(span);
+        kbd.appendChild(img);
+        kbd.appendChild(button);
+        div.appendChild(kbd);
+      }
+    }
+  }
+
+  function listenToUser(hash){
+		document.onkeypress = function(xzkjcnxlkcjlk){
+      var key = xzkjcnxlkcjlk['key']
+      var website = hash[key]
+      window.open(website, '_blank')
+    }
+  }
+</script>
+</html>
