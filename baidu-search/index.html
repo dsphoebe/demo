@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>CSS 练习 - 仿百度搜索框</title>
+  <style>
+     * {padding: 0; margin: 0;}
+    .search-wrapper {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 36px;
+    }
+  </style>
+</head>
+<body>
+<div class="search-wrapper">
+  <div class="input-wrapper">
+    <input type="text">
+    <svg>
+      <use xlink:href="#icon-speak"></use>
+    </svg>
+    <svg>
+      <use xlink:href="#icon-camer"></use>
+    </svg>
+  </div>
+  <button>百度一下</button>
+</div>
+</body>
+</html>
