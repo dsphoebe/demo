@@ -1,4 +1,4 @@
-let canvas = <HTMLCanvasElement> document.querySelector('#canvas')
+const canvas = <HTMLCanvasElement> document.querySelector('#canvas')
 const context = canvas.getContext('2d')
 
 const pageWidth = document.documentElement.clientWidth
@@ -13,12 +13,16 @@ let lastPoint = {
   y: undefined
 }
 
-function drawLine(x1, y1, x2, y2) {
+const docCSS = getComputedStyle(document.documentElement)
+const hdHeight = parseInt(docCSS.getPropertyValue('--hd-height'), 10)
+const minusHeaderHeight = (y:number) => y - hdHeight
+
+function drawLine(x1:number, y1:number, x2:number, y2:number) {
   context.beginPath()
   context.strokeStyle = 'black'
-  context.moveTo(x1, y1)
+  context.moveTo(x1, minusHeaderHeight(y1))
   context.lineWidth = 5
-  context.moveTo(x2, y2)
+  context.lineTo(x2, minusHeaderHeight(y2))
   context.stroke()
   context.closePath()
 }
@@ -51,6 +55,6 @@ canvas.onmousemove = function(event) {
   lastPoint = newPoint
 }
 
-canvas.onmousedown = function() {
+canvas.onmouseup = function() {
   using = false
 }
