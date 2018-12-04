@@ -3,6 +3,7 @@ font-color = #333
 border-color = #ddd
 :root
   --hd-height 80px
+  --brush-color black
 @font-face {
   font-family: 'iconfont';  /* project id 905467 */
   src: url('//at.alicdn.com/t/font_905467_iil3g1y6wn.eot');
@@ -30,39 +31,74 @@ header
     display inline-block
   sup
     font-size .8rem
-.icon {
-  width 1.5em;
+.icon
+  width 1.5em
   height 1.5em
   vertical-align -0.15em
   fill currentColor
   overflow hidden
-}
 .tools
   display inline-block
   padding-left 50px
   .icon
     cursor pointer
-  .icon.active
+    border-bottom 2px solid transparent
+  .active
     border-bottom 2px solid border-color
+.pen
+  position relative
+  cursor pointer
+  ul
+    display none
+    position absolute
+    left 0
+    top 20px
+    width 100%
+    text-align center
+    for num in (1..5)
+      line-height 12px
+      li:nth-child({num})
+        font-size num * 12px
+        color var(--brush-color)
+  &:hover ul
+    display block
 .color-wrap
   display inline-block
   span
+    --size 30px
     display inline-block
-    width 36px
-    line-height 36px
+    width var(--size)
+    line-height var(--size)
     border-radius 50%
-    color color
     cursor pointer
     font-family: 'iconfont';
-    font-size 20px
+    font-size var(--size)
+    text-align center
+  .active
+    color color
 .black
-  background black
+  background var(--brush-color)
+  color var(--brush-color)
 .red
-  background red
+  --brush-color rgb(255, 26, 64)
+  background var(--brush-color)
+  color var(--brush-color)
 .grey
-  background grey 
+  --brush-color rgb(128, 128, 128)
+  background var(--brush-color)
+  color var(--brush-color)
 .blue
-  background blue
+  --brush-color rgb(26, 140, 255)
+  background var(--brush-color)
+  color var(--brush-color)
+.green
+  --brush-color rgb(43, 217, 101)
+  background var(--brush-color)
+  color var(--brush-color)
+.yellow
+  --brush-color rgb(255, 221, 51)
+  background var(--brush-color)
+  color var(--brush-color)
 canvas
   width 100vw
   height calc(100vh - var(--hd-height))
@@ -70,5 +106,3 @@ canvas
   background-color color
   background-image linear-gradient(#eee 1px, transparent 1px), linear-gradient( 90deg, #eee 1px, transparent 1px)
   background-size 100% 1.2em, 1.2em 100%
-.tools, .color-wrap
-  display none
