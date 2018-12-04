@@ -1,0 +1,150 @@
+:root {
+  --hd-height: 80px;
+  --brush-color: #000;
+}
+@font-face {
+  font-family: 'iconfont'; /* project id 905467 */
+  src: url("//at.alicdn.com/t/font_905467_iil3g1y6wn.eot");
+  src: url("//at.alicdn.com/t/font_905467_iil3g1y6wn.eot?#iefix") format('embedded-opentype'), url("//at.alicdn.com/t/font_905467_iil3g1y6wn.woff") format('woff'), url("//at.alicdn.com/t/font_905467_iil3g1y6wn.ttf") format('truetype'), url("//at.alicdn.com/t/font_905467_iil3g1y6wn.svg#iconfont") format('svg');
+}
+body {
+  height: 100vh;
+  overflow: hidden;
+}
+body,
+h1,
+ul,
+li {
+  padding: 0;
+  margin: 0;
+  color: #333;
+}
+ul,
+li {
+  list-style: none;
+}
+header {
+  line-height: var(--hd-height);
+  text-align: center;
+  letter-spacing: 2px;
+  border-bottom: 1px solid #ddd;
+}
+header h1 {
+  font-weight: 300;
+  display: inline-block;
+}
+header sup {
+  font-size: 0.8rem;
+}
+.icon {
+  width: 1.5em;
+  height: 1.5em;
+  vertical-align: -0.15em;
+  fill: currentColor;
+  overflow: hidden;
+}
+.tools {
+  display: inline-block;
+  padding-left: 50px;
+}
+.tools .icon {
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+}
+.tools .active {
+  border-bottom: 2px solid #ddd;
+}
+.pen {
+  position: relative;
+  cursor: pointer;
+}
+.pen ul {
+  display: none;
+  position: absolute;
+  left: 0;
+  top: 20px;
+  width: 100%;
+  text-align: center;
+  line-height: 12px;
+  line-height: 12px;
+  line-height: 12px;
+  line-height: 12px;
+  line-height: 12px;
+}
+.pen ul li:nth-child(1) {
+  font-size: 12px;
+  color: var(--brush-color);
+}
+.pen ul li:nth-child(2) {
+  font-size: 24px;
+  color: var(--brush-color);
+}
+.pen ul li:nth-child(3) {
+  font-size: 36px;
+  color: var(--brush-color);
+}
+.pen ul li:nth-child(4) {
+  font-size: 48px;
+  color: var(--brush-color);
+}
+.pen ul li:nth-child(5) {
+  font-size: 60px;
+  color: var(--brush-color);
+}
+.pen:hover ul {
+  display: block;
+}
+.color-wrap {
+  display: inline-block;
+}
+.color-wrap span {
+  --size: 30px;
+  display: inline-block;
+  width: var(--size);
+  line-height: var(--size);
+  border-radius: 50%;
+  cursor: pointer;
+  font-family: 'iconfont';
+  font-size: var(--size);
+  text-align: center;
+}
+.color-wrap .active {
+  color: #fff;
+}
+.black {
+  background: var(--brush-color);
+  color: var(--brush-color);
+}
+.red {
+  --brush-color: #ff1a40;
+  background: var(--brush-color);
+  color: var(--brush-color);
+}
+.grey {
+  --brush-color: #808080;
+  background: var(--brush-color);
+  color: var(--brush-color);
+}
+.blue {
+  --brush-color: #1a8cff;
+  background: var(--brush-color);
+  color: var(--brush-color);
+}
+.green {
+  --brush-color: #2bd965;
+  background: var(--brush-color);
+  color: var(--brush-color);
+}
+.yellow {
+  --brush-color: #fd3;
+  background: var(--brush-color);
+  color: var(--brush-color);
+}
+canvas {
+  width: 100vw;
+  height: calc(100vh - var(--hd-height));
+  border: 0;
+  background-color: #fff;
+  background-image: linear-gradient(#eee 1px, transparent 1px), linear-gradient(90deg, #eee 1px, transparent 1px);
+  background-size: 100% 1.2em, 1.2em 100%;
+}
