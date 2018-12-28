@@ -1,0 +1,12 @@
+{
+  "name": "jq-slider",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "stylus -w style.styl -o style.css & browser-sync start --server --files 'index.html, *.css, *.js'"
+  },
+  "author": "",
+  "license": "ISC"
+}
