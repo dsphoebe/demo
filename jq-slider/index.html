@@ -7,16 +7,17 @@
   <title>jQuery slider</title>
   <link rel="stylesheet" href="style.css">
   <script src="//code.jquery.com/jquery-2.1.1.min.js"></script>
-  <script src="script.js"></script>
   </script>
 </head>
 <body>
   <div class="slider">
-    <ul>
-      <li>1</li>
-      <li>2</li>
-      <li>3</li>
-    </ul>
+    <div class="window">
+      <ul>
+        <li>1</li>
+        <li>2</li>
+        <li>3</li>
+      </ul>
+    </div>
     <div class="tabs">
       <span>1</span>
       <span>2</span>
@@ -24,11 +25,44 @@
     </div>
   </div>
   <script>
-    $('.tabs li').each(function(item, index) {
-      $('.tabs li')[i].onclick = function() {
+    let currentIndex = 0
+    const tabs = $('.tabs span')
+    const count = tabs.length
 
-      }
+    tabs.each(function(index, item) {
+      $(item).on('click', function(e) {
+        const index = $(e.currentTarget).index()
+        const distance = index * -400
+        $('.slider ul').css({
+          transform: `translate(${distance}px)`
+        })
+        currentIndex = index
+        activeTab(tabs.eq(currentIndex))
+      })
     })
+
+    tabs.eq(currentIndex % count).trigger('click')
+
+    let timerId = setTimer()
+
+    function setTimer() {
+      return setInterval(() => {
+        currentIndex += 1
+        // currentIndex % count 返回的是 0 ～ count 的数值
+        tabs.eq(currentIndex % count).trigger('click')
+      }, 3000)
+    }
+
+    function activeTab($tab) {
+      $tab
+        .addClass('active')
+        .siblings('.active')
+        .removeClass('active')
+    }
+
+    $('.slider')
+      .on('mouseenter', () => window.clearInterval(timerId))
+      .on('mouseleave', () => timerId = setTimer())
   </script>
 </body>
 </html>

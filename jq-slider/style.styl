@@ -10,17 +10,23 @@ body
 li, ul
   margin 0
   padding 0
+  list-style none
 .slider
   width var(--width)
   height var(--height)
   margin 0 auto
-  ul
+  .window
     width var(--width)
     height var(--height)
+    overflow hidden
+  ul
+    width 10000px
     display flex
     flex-wrap wrap
-    overflow hidden
+    align-items flex-start
+    transition all .5s
   li
+    vertical-align top
     width var(--width)
     height var(--height)
     text-align center
@@ -38,5 +44,6 @@ li, ul
     span
       padding 0 10px
       line-height 30px
-      &:hover
+      &:hover,
+      &.active
         background #ddd 

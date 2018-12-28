@@ -13,20 +13,27 @@ li,
 ul {
   margin: 0;
   padding: 0;
+  list-style: none;
 }
 .slider {
   width: var(--width);
   height: var(--height);
   margin: 0 auto;
 }
-.slider ul {
+.slider .window {
   width: var(--width);
   height: var(--height);
-  display: flex;
-  flex-wrap: wrap;
   overflow: hidden;
 }
+.slider ul {
+  width: 10000px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  transition: all 0.5s;
+}
 .slider li {
+  vertical-align: top;
   width: var(--width);
   height: var(--height);
   text-align: center;
@@ -50,6 +57,7 @@ ul {
   padding: 0 10px;
   line-height: 30px;
 }
-.slider .tabs span:hover {
+.slider .tabs span:hover,
+.slider .tabs span.active {
   background: #ddd;
 }
