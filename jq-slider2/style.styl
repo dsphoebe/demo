@@ -1,0 +1,32 @@
+@import '../common'
+
+box = 
+  width 500px
+  height 300px
+.slider
+  margin 20px auto
+  text-align center
+  line-height 2
+  &, ul, li
+    {box}
+  ul
+    position relative
+    overflow hidden
+  li
+    position absolute
+    top 0
+    transition all 1.5s
+    background #ddd
+    color #ffffff
+    text-align center
+    line-height 300px
+    font-size 200px
+  .current
+    left 0
+    transform translateX(0)
+    z-index 1
+  .leave
+    transform translateX(-100%)
+    z-index 1
+  .enter
+    transform translateX(100%)

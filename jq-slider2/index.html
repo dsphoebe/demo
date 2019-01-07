@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>无缝 jQuery slider</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="//code.jquery.com/jquery-2.1.1.min.js"></script>
+</head>
+<body>
+  <div class="slider">
+    <div class="images">
+      <ul>
+        <li>1</li>
+        <li>2</li>
+        <li>3</li>
+        <li>4</li>
+        <li>5</li>
+      </ul>
+    </div>
+  </div>
+  <script>
+    $(function() {
+      let n = 1
+      let len = $('.images li').length
+
+      const init = () => {
+        $('.images li').addClass('enter')
+        $('.images li:nth-child(1)').removeClass('enter').addClass('current')
+      }
+
+      const getImage = n => {
+        if (n > len) {
+          n = n % len
+          if (n === 0) {
+            n = len
+          }
+        }
+        return n
+      }
+
+      const makeLeave = idx => $(`.images li:nth-child(${idx})`)
+                                .removeClass('current').addClass('leave')
+      
+      const makeEnter = $elm => $elm.removeClass('leave').addClass('enter')
+
+      const makeCurrent = idx => $(`.images li:nth-child(${idx})`)
+                                  .removeClass('enter').addClass('current')
+
+      init()
+      setInterval(()=>{
+        makeLeave(getImage(n))
+          .one('transitionend', (e)=>{
+            makeEnter($(e.currentTarget))
+          })
+          makeCurrent(getImage(n+1))
+        n += 1
+      }, 3000)
+    })
+  </script>
+</body>
+</html>
