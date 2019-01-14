@@ -11,13 +11,13 @@
   <input type="submit" id="button" value="付款">
   <script>
     button.addEventListener('click', e => {
-      let image = document.createElement('img')
-      image.src = '/pay'
-      image.onload = function() {
-        amount.innerText = amount.innerText - 1
-        alert('sucess')
+      let script = document.createElement('script')
+      script.src = '/pay'
+      document.body.appendChild(script)
+      script.onload = function() {
+        alert('success')
       }
-      image.onerror = function() {
+      script.onerror = function() {
         alert('fail')
       }
     })
