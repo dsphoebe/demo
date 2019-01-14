@@ -1,0 +1,65 @@
+w = 920px
+h = 400px
+*
+  margin 0
+  padding 0
+ul, li
+  list-style none
+.slider
+  width w
+  position: relative;
+  box-shadow: 0 0 1px #aaa;
+  margin 20px auto
+  border-radius 5px
+  .imgs
+    height h
+    overflow hidden
+    ul
+      height h
+      transition all .5s
+    li
+      display inline-block
+  .tabs
+    background: linear-gradient(0 deg, #fff, #f5f5f5 5%, #f1f1f1 8%, #eee)
+    border-top: 1px solid #ddd
+    border-left: 1px solid #fff
+    border-right: 1px solid #fff
+    text-align center
+    height 45px
+    display flex
+    justify-content: center
+    li
+      display inline-block
+      padding 10px 20px 0
+      border-left 1px solid #ddd
+      border-right 1px solid #fff
+      &.current
+        background radial-gradient(circle, #fff 0%, #ddd 100%)
+        position relative
+        height 34px
+      &:last-child.current:before,
+      &:not(:last-child).current:after
+        top -1px
+        left 50%
+        transform translateX(-50%)
+        position absolute
+        content: ''
+        border 8px solid transparent
+        border-top-color: #fff;
+      &:first-child,
+      &:last-child
+        position: relative
+      &:first-child:before,
+      &:last-child:after
+        content: ''
+        height 100%
+        width 1px
+        position absolute
+        top 0
+      &:first-child:before
+        background #fff
+        left 0
+      &:last-child:after
+        background #ddd
+        right 0
+      

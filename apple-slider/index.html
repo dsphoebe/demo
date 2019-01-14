@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Apple slider</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="//code.jquery.com/jquery-2.1.1.min.js"></script>
+</head>
+<body>  
+  <div class="slider">
+    <div id="imgs" class="imgs">
+      <ul>
+        <li><img src="./images/macbook.jpg" alt=""></li>
+        <li><img src="./images/iphone.jpg" alt=""></li>
+        <li><img src="./images/imac.jpg" alt=""></li>
+        <li><img src="./images/info.jpg" alt=""></li>
+      </ul>
+    </div>
+    <ul class="tabs" id="tabs">
+      <li><img src="./images/thumb_macbook.png" alt=""></li>
+      <li><img src="./images/thumb_iphone.png" alt=""></li>
+      <li><img src="./images/thumb_imac.png" alt=""></li>
+      <li><img src="./images/thumb_about.png" alt=""></li>
+    </ul>
+  </div>
+  <script>
+    (function() {
+
+      const items = imgs.querySelectorAll('li')
+      const len = items.length
+
+      const singleItemWidth = items[0].offsetWidth + 10
+      imgs.querySelector('ul').style.width = singleItemWidth * len + 'px'
+
+      const buttons = tabs.querySelectorAll('li') 
+      buttons[0].classList.add('current')
+      
+      buttons.forEach(tab => {
+        tab.onclick = function(e) {
+          const currentTab = tabs.querySelector('.current')
+          !currentTab ? void(0) : currentTab.classList.remove('current')
+          tab.classList.add('current')
+          currentIndex = Array.prototype.indexOf.call(buttons, tab)
+          imgs.querySelector('ul').style.transform = `translateX(-${currentIndex * singleItemWidth}px)`
+        }
+      })
+    })()
+  </script>
+</body>
+</html>
