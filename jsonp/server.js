@@ -23,6 +23,7 @@ const server = http.createServer((request, response) => {
     var amount = fs.readFileSync('./db', 'utf8')
     var newAmount = amount - 1
     fs.writeFileSync('./db', newAmount)
+    response.statusCode = 200
     response.write('success')
     response.end()
   }

@@ -13,6 +13,12 @@
     button.addEventListener('click', e => {
       let image = document.createElement('img')
       image.src = '/pay'
+      image.onload = function() {
+        alert('sucess')
+      }
+      image.onerror = function() {
+        alert('fail')
+      }
     })
   </script>
 </body>
