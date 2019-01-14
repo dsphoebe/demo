@@ -7,13 +7,14 @@
   <title>JSONP demo</title>
 </head>
 <body>
-  <p>我有这么多钱：<span id="amout">$$$amout$$$</span></p>
+  <p>我有这么多钱：<span id="amount">$$$amout$$$</span></p>
   <input type="submit" id="button" value="付款">
   <script>
     button.addEventListener('click', e => {
       let image = document.createElement('img')
       image.src = '/pay'
       image.onload = function() {
+        amount.innerText = amount.innerText - 1
         alert('sucess')
       }
       image.onerror = function() {
