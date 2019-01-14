@@ -25,7 +25,9 @@ const server = http.createServer((request, response) => {
     fs.writeFileSync('./db', newAmount)
     response.setHeader('content-Type', 'application/javascript')
     response.statusCode = 200
-    response.write('alert("我是pay")')
+    response.write(`
+      amount.innerText = amount.innerText - 1;
+    `)
     response.end()
   }
 })
