@@ -8,8 +8,10 @@
 </head>
 <body>
   <p>我有这么多钱：<span id="amout">$$$amout$$$</span></p>
-  <form action="/pay" method="POST">
+  <form action="/pay" method="POST" target="result">
     <input type="submit" value="付款">
   </form>
+  <!-- 不用在当前页面刷新，在 iframe 刷新 -->
+  <iframe src="about:blank" name="result" frameborder="0"></iframe>
 </body>
 </html>
