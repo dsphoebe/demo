@@ -8,18 +8,32 @@
 </head>
 <body>
   <p>我有这么多钱：<span id="amount">$$$amout$$$</span></p>
-  <input type="submit" id="button" value="付款">
+  <input type="submit" id="button" value="给你 10 毛">
   <script>
     button.addEventListener('click', e => {
-      let script = document.createElement('script')
-      script.src = 'http://jack.com:8002/pay'
+      const script = document.createElement('script')
+
+      let functionName = 'jsonpCallback' + parseInt(Math.random() * 100000, 10)
+
+      script.src = 'http://jack.com:8002/pay?callback=' + functionName
+
+      window[functionName] = function(data) {
+        if (data.result === 'success') {
+          amount.innerText = data.left
+          alert('成功给她 10 毛')
+        }
+      }
+
       document.body.appendChild(script)
+
       script.onload = function(e) {
         e.currentTarget.remove()
+        delete window[functionName]
       }
+
       script.onerror = function(e) {
         e.currentTarget.remove()
-        alert('fail')
+        delete window[functionName]
       }
     })
   </script>

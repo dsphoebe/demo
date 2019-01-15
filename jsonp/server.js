@@ -1,32 +1,27 @@
 const http = require('http')
 const fs = require('fs')
 const url = require('url')
-const port = process.argv[2] || 8000
+const port = process.argv[2] || 8002
+const domain = 'jack.com'
 
 const server = http.createServer((request, response) => {
-  const parsedUrl = url.parse(request.url, true)
   const path = request.url
-  const query = ''
+  const url_parts = url.parse(path, true)
+  const query = url_parts.query
 
-
-  console.log('HTTP 路径为 \n' + path)
-
-  if (path == '/') {
-    var string = fs.readFileSync('./index.html', 'utf8')
-    var amount = fs.readFileSync('./db', 'utf8')
-    string = string.replace('$$$amout$$$', amount)
-    response.setHeader('Content-type', 'text/html; charset=utf-8')
-    response.write(string)
-    response.end()
-  }
-  if (path == '/pay') {
+  console.log(query, query.callback)
+  console.log('http://' + domain + path)
+if (url_parts.pathname == '/pay') {
     var amount = fs.readFileSync('./db', 'utf8')
     var newAmount = amount - 1
     fs.writeFileSync('./db', newAmount)
     response.setHeader('content-Type', 'application/javascript')
     response.statusCode = 200
     response.write(`
-      amount.innerText = amount.innerText - 1;
+      ${query.callback}.call(undefined, {
+        "result": "success",
+        "left": ${newAmount}
+      });
     `)
     response.end()
   }
@@ -34,4 +29,4 @@ const server = http.createServer((request, response) => {
 
 server.listen(port)
 
-console.log('监听 ' + port)
+console.log('服务端 ' + domain + ' 监听 ' + port)
